@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.io</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./index.js"></script>
+    <link rel="stylesheet" href="../style.css">
+   <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/4834373349.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="navBarContainer">
+    <b class="NavBarLogo">Tech-Store</b>
+    <ul class="navLinkList">
+      <li><a href="/productosFaker" >Productos Faker</a></li>
+      <li><a href="/info">Informacion</a></li>
+      <li><a href="/carrito">Carrito</a></li>
+      <form action="/auth/logout" method="get" id="btnLogout">
+      <button type="submit" value="submit" class="btnLogOut" style="margin: 10px"><i class="fa-solid fa-right-from-bracket"></i> Desloguearse</button>
+      </form> 
+    </ul>
+  </div>
+      <div class="infoLogIn">
+      </div>
+
+      <div class="infoUsuarioContainer">
+        <div class="InfoUsuarioItem">
+          <div class="infoUsuario"></div>
+          <div class="infoUsuario infoText">
+            <p><b>Nombre: </b>{{nombre}}</p>
+            <p><b>Edad: </b>{{edad}}</p>
+            <p><b>Correo: </b> {{correo}}</p>
+            <p><b>Numero Telefono:</b>{{numeroTelefono}}</p>
+            <p><b>Ubicacion:</b>{{ubicacion}}</p>
+            <p>Disponibilidad de comprar articulos <i class="fa-solid fa-circle-check"></i></p>
+          </div>
+          <p class="registroCheck"> <i class="fa-solid fa-check-to-slot"></i> Registrado</p>
+        </div>
+      </div>
+      
+  <div class="ProductosInfoContainer">
+
+    <div class="InfoPosteoProductosContainer">
+      <h2>Agregar Productos</h2>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis perferendis labore error! Ullam in debitis voluptatum tempora laudantium optio voluptas aut nesciunt est cupiditate. Nesciunt laudantium excepturi enim quos! Omnis odio repudiandae aspernatur non ratione asperiores, quae tenetur voluptates! Fugit natus eos iusto omnis delectus voluptatibus quos similique ullam?</p>
+    </div>
+    <div class="areaFormularioContainer">
+       <div class="formularioContainer">
+        <form onsubmit="return agregarProducto(this)" class="formularioProductos">
+          <b>Datos Del Producto</b>
+            <input type="text" id="nombre" placeholder="Nombre del producto..." class="input">
+            <input type="text" id="precio" placeholder="Precio del producto..." class="input">
+            <input type="text" id="img" placeholder="Imagen del producto..." class="input">
+            <input type="text" id="tipo_producto" placeholder="Tipo de producto" class="input">
+            <input type="text" id="marca_producto" placeholder="Marca de producto... " class="input">
+            <input type="submit" class="btn">
+             {{!-- <buttton type="submit" class="btn"><i class="fa-solid fa-cart-plus"></i>  Agregar </buttton> --}}
+        </form>
+    </div>
+    </div>
+  </div>
+
+  <div class="InfoEcommerceContainer">
+    <div class="infoEcommerceItem">
+   <i class="fa-solid fa-truck-fast fa-2x icon"></i>
+      <b class="tituloItem">Entrega</b>
+      <p class="textItem">Entrega estimada en 1 dia. NIVEL NACIONAL</p>
+    </div>
+
+      <div class="infoEcommerceItem ">
+      <i class="fa-solid fa-tag fa-2x icon"></i>
+      <b class="tituloItem">precio</b>
+      <p class="textItem">Gran variedad de precios </p>
+    </div>
+
+      <div class="infoEcommerceItem">
+     <i class="fa-brands fa-apple fa-2x icon"></i>
+      <b class="tituloItem">Marcas</b>
+      <p class="textItem">Marcas reconocidas en el mercado </p>
+    </div>
+
+      <div class="infoEcommerceItem">
+      <i class="fa-solid fa-rectangle-list fa-2x icon"></i>
+      <b class="tituloItem">Variedad</b>
+      <p class="textItem">Gran variedad de productos de todo tipo</p>
+    </div>
+   
+  </div>
+
+  {{!-- <div class="AreaFiltradoContainer"> --}}
+    {{!-- <div class="AreaFiltrado">
+        <div>
+          <input type="text">
+         </div>
+              <div>
+          <input type="text">
+         </div>
+           <div>
+          <input type="text">
+         </div>
+                    <div>
+          <input type="text">
+         </div>
+          <div>
+            <button class="btnBuscarFiltrado">Buscar</button>
+          </div>
+    </div> --}}
+
+    <form onsubmit="return filtradoProductos(this)" class="AreaFiltradoContainer">
+      <div class="ItemOpcionFiltrado">
+    <select name="" id="selectMarca" class="item">
+      <option value="none">Marca</option>
+       <option value="Apple">Apple</option>
+        <option value="Samsung">Samsung</option>
+         <option value="Dell">Dell</option>
+          <option value="Sony">Sony</option>
+           <option value="Microsoft">Microsoft</option>
+            <option value="Canon">Canon</option>
+             <option value="Xiaomi">Xiaomi</option>
+              <option value="Tp-Link">Tp-Link</option>
+              <option value="Asus">Asus</option>
+    </select>
+      </div>
+
+      <div class="ItemOpcionFiltrado">
+     <select name="" id="selectPrecio" class="item">
+      <option value="none">Precio</option>
+      <option value="50">0 - 50$</option>
+      <option value="250">0$ - 250$</option>
+      <option value="450">0$ - 450$</option>
+      <option value="800">0$ - 800$</option>
+      <option value="1100">0$ - 1100$</option>
+      <option value="1800">0$ a 1800$</option>
+    </select>
+      </div>
+
+      <div class="ItemOpcionFiltrado">
+    <select name="" id="selectProducto" class="item">
+      <option value="none">Producto</option>
+       <option value="telefono">Telefonos</option>
+        <option value="audifono">Audifonos</option>
+         <option value="videojuego">Video juegos</option>
+          <option value="teclado">Teclados</option>
+           <option value="monitor">Monitores</option>
+    </select>
+      </div>
+      <div>
+        <button class="btnBuscarFiltrado">Buscar</button>
+      </div>
+    </form>
+
+
+  </div>
+
+   
+    {{{body}}}
+    
+        <div id="productosContenedor"></div>
+
+
+ 
+    <div class="areaMensajeContainer">
+      <div class="infoAreaMensaje">
+        <h3>Area De Mensajeria <i class="fa-solid fa-comments"></i></h3>
+        <p>Tenes disponible un espacio destinado a mensajeria, donde puedes enviar y recibir mensajes desde la plataforma. Puedes compartir con amigos y familiares que se allan registrado, comprado o haber interactuado en algun momento en la plataforma</p>
+      </div>
+      <div class="mensajeFormularioArea">
+        <form onsubmit="return agregarMensaje(this)" class="formulario">
+            <input type="text" id="nombreMensaje" placeholder="Ingresa tu nombre..." class="input">
+            <input type="text" id="apellidoMensaje" placeholder="Ingresa tu Apellido..." class="input">
+             <input type="text" id="edadMensaje" placeholder="Ingresa tu edad..." class="input">
+             <input type="text" id="mailMensaje" placeholder="Ingresa tu correo..." class="input">
+                <input type="text" id="aliasMensaje" placeholder="Ingresa tu alias..." class="input">
+             <input type="text" id="avatarMensaje" placeholder="Ingresa tu URL de avatar..." class="input">
+               <input type="text" id="mensaje" placeholder="Mensaje a enviar" class="input">
+            <input type="submit" class="btn">
+        </form>
+      </div>
+    </div>
+      
+        <div id="chatContenedor"></div>
+
+
+        <div>Navegacion</div>
+</body>
+</html>
